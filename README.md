@@ -1,2 +1,2 @@
-# ef-core-series
-This repo contains the source code used in the EF Core Series on Code Maze.
+# This is a first article's source code from the EF Core Series.
+## https://code-maze.com/getting-started-with-efcore
