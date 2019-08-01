@@ -7,10 +7,17 @@ using System.Threading.Tasks;
 
 namespace EFCoreApp.Entities
 {
+    [Table("Student")]
     public class Student
     {
+        [Column("StudentId")]
         public Guid Id { get; set; }
+
+        [Required]
+        [MaxLength(50, ErrorMessage = "Length must be less then 50 characters")]
         public string Name { get; set; }
+
         public int? Age { get; set; }
+        public bool IsRegularStudent { get; set; }
     }
 }
