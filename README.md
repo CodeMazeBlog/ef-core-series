@@ -1,2 +1,2 @@
 # ef-core-series
-This repo contains the source code used in the EF Core Series on Code Maze.
+##  https://code-maze.com/migrations-and-seed-data-efcore/
