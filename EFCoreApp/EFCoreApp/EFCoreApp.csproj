@@ -8,6 +8,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190526164430_TestMigrationFromSeparateProject.cs" />
     <Compile Remove="Migrations\20190526164430_TestMigrationFromSeparateProject.Designer.cs" />
+    <Compile Remove="Migrations\20190531201429_OneToManyBothSideNavigation.cs" />
+    <Compile Remove="Migrations\20190531201429_OneToManyBothSideNavigation.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

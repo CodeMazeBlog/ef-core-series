@@ -37,6 +37,11 @@ namespace Entities.Configuration
                     Age = 28
                 }
             );
+
+            builder.HasMany(e => e.Evaluations)
+                .WithOne(s => s.Student)
+                .HasForeignKey(s => s.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

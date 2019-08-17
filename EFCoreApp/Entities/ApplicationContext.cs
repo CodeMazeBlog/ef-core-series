@@ -18,6 +18,7 @@ namespace Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new StudentConfiguration());
+            modelBuilder.ApplyConfiguration(new StudentSubjectConfiguration());
         }
 
         public DbSet<Student> Students { get; set; }
