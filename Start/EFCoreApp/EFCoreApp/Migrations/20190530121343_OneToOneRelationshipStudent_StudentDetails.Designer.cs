@@ -4,39 +4,22 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFCoreApp.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20190530121343_OneToOneRelationshipStudent_StudentDetails")]
+    partial class OneToOneRelationshipStudent_StudentDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Entities.Evaluation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("EvaluationId");
-
-                    b.Property<string>("AdditionalExplanation");
-
-                    b.Property<int>("Grade");
-
-                    b.Property<Guid>("StudentId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("Evaluation");
-                });
 
             modelBuilder.Entity("Entities.Student", b =>
                 {
@@ -61,21 +44,21 @@ namespace EFCoreApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("33609662-ccd0-4679-bcd7-73e17a9610d6"),
+                            Id = new Guid("a896fab3-f61c-41c1-bde6-72ef3ed598fe"),
                             Age = 30,
                             IsRegularStudent = false,
                             Name = "John Doe"
                         },
                         new
                         {
-                            Id = new Guid("82e399e7-aaa7-4f51-91a3-32903e45d8b6"),
+                            Id = new Guid("76cf8975-45ad-46de-93f7-bfee29c68aa2"),
                             Age = 25,
                             IsRegularStudent = false,
                             Name = "Jane Doe"
                         },
                         new
                         {
-                            Id = new Guid("6e7e6d0f-6afe-4f20-b24f-8685e9635f30"),
+                            Id = new Guid("188c0a71-cacc-4a61-8dcb-595bf3cc20fd"),
                             Age = 28,
                             IsRegularStudent = false,
                             Name = "Mike Miles"
@@ -102,58 +85,11 @@ namespace EFCoreApp.Migrations
                     b.ToTable("StudentDetails");
                 });
 
-            modelBuilder.Entity("Entities.StudentSubject", b =>
-                {
-                    b.Property<Guid>("StudentId");
-
-                    b.Property<Guid>("SubjectId");
-
-                    b.HasKey("StudentId", "SubjectId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("StudentSubject");
-                });
-
-            modelBuilder.Entity("Entities.Subject", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("SubjectId");
-
-                    b.Property<string>("SubjectName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Subject");
-                });
-
-            modelBuilder.Entity("Entities.Evaluation", b =>
-                {
-                    b.HasOne("Entities.Student", "Student")
-                        .WithMany("Evaluations")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("Entities.StudentDetails", b =>
                 {
                     b.HasOne("Entities.Student", "Student")
                         .WithOne("StudentDetails")
                         .HasForeignKey("Entities.StudentDetails", "StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Entities.StudentSubject", b =>
-                {
-                    b.HasOne("Entities.Student", "Student")
-                        .WithMany("StudentSubjects")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Entities.Subject", "Subject")
-                        .WithMany("StudentSubjects")
-                        .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
