@@ -1,2 +1,2 @@
-# This is a first article's source code from the EF Core Series.
-## https://code-maze.com/getting-started-with-efcore
+# This is the last article's source code from the EF Core Series.
+## https://code-maze.com/efcore-modifying-data/
