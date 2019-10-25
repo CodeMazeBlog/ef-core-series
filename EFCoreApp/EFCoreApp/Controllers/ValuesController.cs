@@ -122,8 +122,6 @@ namespace EFCoreApp.Controllers
         //    if (!ModelState.IsValid)
         //        return BadRequest();
 
-        //    student.Id = Guid.NewGuid();
-
         //    var stateBeforeAdd = _context.Entry(student).State;
 
         //    _context.Add(student);
@@ -142,10 +140,8 @@ namespace EFCoreApp.Controllers
         {
             //validation code goes here
 
-            student.Id = Guid.NewGuid();
             student.StudentDetails = new StudentDetails
             {
-                Id = Guid.NewGuid(),
                 Address = "Added Address",
                 AdditionalInformation = "Additional information added"
             };
@@ -161,12 +157,10 @@ namespace EFCoreApp.Controllers
         {
             //additional checks
 
-            var studentsWithIds = students.Select(s => new Student { Id = Guid.NewGuid(), Age = s.Age, Name = s.Name });
-
-            _context.AddRange(studentsWithIds);
+            _context.AddRange(students);
             _context.SaveChanges();
 
-            return Created("URI is going here", studentsWithIds);
+            return Created("URI is going here", students);
         }
 
         [HttpPut("{id}")]
