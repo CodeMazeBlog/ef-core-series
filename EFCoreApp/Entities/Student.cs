@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
+    [Table("Student")]
     public class Student
     {
         [Column("StudentId")]
