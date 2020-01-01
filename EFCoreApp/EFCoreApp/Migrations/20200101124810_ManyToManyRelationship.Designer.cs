@@ -4,14 +4,16 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFCoreApp.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20200101124810_ManyToManyRelationship")]
+    partial class ManyToManyRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,21 +71,21 @@ namespace EFCoreApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0cb12cb6-2885-4e64-9855-aa7035afdc8a"),
+                            Id = new Guid("be167b41-0a54-49b3-8550-1e0db9d6f069"),
                             Age = 30,
                             IsRegularStudent = false,
                             Name = "John Doe"
                         },
                         new
                         {
-                            Id = new Guid("7b4d2ca1-450e-4a11-b063-c35ad19677cc"),
+                            Id = new Guid("7a227e87-8315-4be8-bdd6-0b2d24e7834e"),
                             Age = 25,
                             IsRegularStudent = false,
                             Name = "Jane Doe"
                         },
                         new
                         {
-                            Id = new Guid("4f641aad-87a3-416f-9d3b-2a9140d8077f"),
+                            Id = new Guid("7d1775a1-5b84-4044-83ba-090c0de0bca1"),
                             Age = 28,
                             IsRegularStudent = false,
                             Name = "Mike Miles"
@@ -149,7 +151,7 @@ namespace EFCoreApp.Migrations
                     b.HasOne("Entities.Student", "Student")
                         .WithMany("Evaluations")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
