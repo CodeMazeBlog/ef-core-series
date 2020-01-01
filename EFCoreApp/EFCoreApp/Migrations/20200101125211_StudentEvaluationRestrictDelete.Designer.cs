@@ -4,14 +4,16 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFCoreApp.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20200101125211_StudentEvaluationRestrictDelete")]
+    partial class StudentEvaluationRestrictDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,36 +42,6 @@ namespace EFCoreApp.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("Evaluation");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("f82eade0-2860-4130-8460-f7661a6dce34"),
-                            AdditionalExplanation = "First test...",
-                            Grade = 5,
-                            StudentId = new Guid("660ed4cd-1361-4216-9faa-9636e4df681a")
-                        },
-                        new
-                        {
-                            Id = new Guid("0c78e3ee-6630-49be-805a-027d58717e08"),
-                            AdditionalExplanation = "Second test...",
-                            Grade = 4,
-                            StudentId = new Guid("660ed4cd-1361-4216-9faa-9636e4df681a")
-                        },
-                        new
-                        {
-                            Id = new Guid("0c7d3dec-ca34-4a38-85c4-3658f3fa1c08"),
-                            AdditionalExplanation = "First test...",
-                            Grade = 3,
-                            StudentId = new Guid("410c14e3-e6df-45b8-8c6f-1e19aed675ac")
-                        },
-                        new
-                        {
-                            Id = new Guid("65c966d4-42e2-4055-8d79-bca655463244"),
-                            AdditionalExplanation = "Last test...",
-                            Grade = 2,
-                            StudentId = new Guid("4addc421-0937-45cb-b55c-200b45c6caca")
-                        });
                 });
 
             modelBuilder.Entity("Entities.Student", b =>
@@ -99,21 +71,21 @@ namespace EFCoreApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("660ed4cd-1361-4216-9faa-9636e4df681a"),
+                            Id = new Guid("0cb12cb6-2885-4e64-9855-aa7035afdc8a"),
                             Age = 30,
                             IsRegularStudent = false,
                             Name = "John Doe"
                         },
                         new
                         {
-                            Id = new Guid("410c14e3-e6df-45b8-8c6f-1e19aed675ac"),
+                            Id = new Guid("7b4d2ca1-450e-4a11-b063-c35ad19677cc"),
                             Age = 25,
                             IsRegularStudent = false,
                             Name = "Jane Doe"
                         },
                         new
                         {
-                            Id = new Guid("4addc421-0937-45cb-b55c-200b45c6caca"),
+                            Id = new Guid("4f641aad-87a3-416f-9d3b-2a9140d8077f"),
                             Age = 28,
                             IsRegularStudent = false,
                             Name = "Mike Miles"
@@ -157,38 +129,6 @@ namespace EFCoreApp.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("StudentSubject");
-
-                    b.HasData(
-                        new
-                        {
-                            StudentId = new Guid("660ed4cd-1361-4216-9faa-9636e4df681a"),
-                            SubjectId = new Guid("7e69e207-5131-4791-9064-57f6d3c47fc8")
-                        },
-                        new
-                        {
-                            StudentId = new Guid("660ed4cd-1361-4216-9faa-9636e4df681a"),
-                            SubjectId = new Guid("89fc9e5d-74f6-4d2e-ae82-76f2b1decce7")
-                        },
-                        new
-                        {
-                            StudentId = new Guid("660ed4cd-1361-4216-9faa-9636e4df681a"),
-                            SubjectId = new Guid("9e5f12c2-0aa2-49b0-9db2-7df40fecf9ad")
-                        },
-                        new
-                        {
-                            StudentId = new Guid("410c14e3-e6df-45b8-8c6f-1e19aed675ac"),
-                            SubjectId = new Guid("fee204f4-a51d-44bb-a3d7-dcc2b5ee5d4f")
-                        },
-                        new
-                        {
-                            StudentId = new Guid("410c14e3-e6df-45b8-8c6f-1e19aed675ac"),
-                            SubjectId = new Guid("7e69e207-5131-4791-9064-57f6d3c47fc8")
-                        },
-                        new
-                        {
-                            StudentId = new Guid("4addc421-0937-45cb-b55c-200b45c6caca"),
-                            SubjectId = new Guid("fee204f4-a51d-44bb-a3d7-dcc2b5ee5d4f")
-                        });
                 });
 
             modelBuilder.Entity("Entities.Subject", b =>
@@ -204,28 +144,6 @@ namespace EFCoreApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Subject");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("7e69e207-5131-4791-9064-57f6d3c47fc8"),
-                            SubjectName = "Math"
-                        },
-                        new
-                        {
-                            Id = new Guid("89fc9e5d-74f6-4d2e-ae82-76f2b1decce7"),
-                            SubjectName = "English"
-                        },
-                        new
-                        {
-                            Id = new Guid("9e5f12c2-0aa2-49b0-9db2-7df40fecf9ad"),
-                            SubjectName = "History"
-                        },
-                        new
-                        {
-                            Id = new Guid("fee204f4-a51d-44bb-a3d7-dcc2b5ee5d4f"),
-                            SubjectName = "Computer Science"
-                        });
                 });
 
             modelBuilder.Entity("Entities.Evaluation", b =>
@@ -233,7 +151,7 @@ namespace EFCoreApp.Migrations
                     b.HasOne("Entities.Student", "Student")
                         .WithMany("Evaluations")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

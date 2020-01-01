@@ -41,9 +41,7 @@ namespace Entities.Configuration
             builder.HasMany(e => e.Evaluations)
                 .WithOne(s => s.Student)
                 .HasForeignKey(s => s.StudentId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasQueryFilter(s => !s.Deleted);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
