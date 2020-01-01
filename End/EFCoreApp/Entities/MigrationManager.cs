@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,9 +9,9 @@ namespace Entities
 {
     public static class MigrationManager
     {
-        public static IWebHost MigrateDatase(this IWebHost webHost)
+        public static IHost MigrateDatabase(this IHost host)
         {
-            using (var scope = webHost.Services.CreateScope())
+            using (var scope = host.Services.CreateScope())
             {
                 using (var appContext = scope.ServiceProvider.GetRequiredService<ApplicationContext>())
                 {
@@ -27,7 +27,7 @@ namespace Entities
                 }
             }
 
-            return webHost;
+            return host;
         }
     }
 }

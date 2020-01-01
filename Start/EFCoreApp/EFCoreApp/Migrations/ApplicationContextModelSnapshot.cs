@@ -15,7 +15,7 @@ namespace EFCoreApp.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -23,13 +23,17 @@ namespace EFCoreApp.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("EvaluationId");
+                        .HasColumnName("EvaluationId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AdditionalExplanation");
+                    b.Property<string>("AdditionalExplanation")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Grade");
+                    b.Property<int>("Grade")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("StudentId");
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -40,28 +44,28 @@ namespace EFCoreApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a0423daf-c930-4d88-a33d-114b742e563e"),
+                            Id = new Guid("f82eade0-2860-4130-8460-f7661a6dce34"),
                             AdditionalExplanation = "First test...",
                             Grade = 5,
                             StudentId = new Guid("660ed4cd-1361-4216-9faa-9636e4df681a")
                         },
                         new
                         {
-                            Id = new Guid("ed2198fb-3b7b-4d9e-bda1-c35f53e2e5be"),
+                            Id = new Guid("0c78e3ee-6630-49be-805a-027d58717e08"),
                             AdditionalExplanation = "Second test...",
                             Grade = 4,
                             StudentId = new Guid("660ed4cd-1361-4216-9faa-9636e4df681a")
                         },
                         new
                         {
-                            Id = new Guid("bd74f429-5161-4761-ad11-7eb074aee323"),
+                            Id = new Guid("0c7d3dec-ca34-4a38-85c4-3658f3fa1c08"),
                             AdditionalExplanation = "First test...",
                             Grade = 3,
                             StudentId = new Guid("410c14e3-e6df-45b8-8c6f-1e19aed675ac")
                         },
                         new
                         {
-                            Id = new Guid("6d662b0f-2ea3-452a-8051-2b9dc4bd03e8"),
+                            Id = new Guid("65c966d4-42e2-4055-8d79-bca655463244"),
                             AdditionalExplanation = "Last test...",
                             Grade = 2,
                             StudentId = new Guid("4addc421-0937-45cb-b55c-200b45c6caca")
@@ -72,16 +76,20 @@ namespace EFCoreApp.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("StudentId");
+                        .HasColumnName("StudentId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("Age");
+                    b.Property<int?>("Age")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsRegularStudent")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
                         .HasDefaultValue(true);
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -116,13 +124,17 @@ namespace EFCoreApp.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("StudentDetailsId");
+                        .HasColumnName("StudentDetailsId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AdditionalInformation");
+                    b.Property<string>("AdditionalInformation")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Address");
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("StudentId");
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -134,9 +146,11 @@ namespace EFCoreApp.Migrations
 
             modelBuilder.Entity("Entities.StudentSubject", b =>
                 {
-                    b.Property<Guid>("StudentId");
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SubjectId");
+                    b.Property<Guid>("SubjectId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("StudentId", "SubjectId");
 
@@ -181,9 +195,11 @@ namespace EFCoreApp.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("SubjectId");
+                        .HasColumnName("SubjectId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("SubjectName");
+                    b.Property<string>("SubjectName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -217,7 +233,8 @@ namespace EFCoreApp.Migrations
                     b.HasOne("Entities.Student", "Student")
                         .WithMany("Evaluations")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.StudentDetails", b =>
@@ -225,7 +242,8 @@ namespace EFCoreApp.Migrations
                     b.HasOne("Entities.Student", "Student")
                         .WithOne("StudentDetails")
                         .HasForeignKey("Entities.StudentDetails", "StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.StudentSubject", b =>
@@ -233,12 +251,14 @@ namespace EFCoreApp.Migrations
                     b.HasOne("Entities.Student", "Student")
                         .WithMany("StudentSubjects")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Entities.Subject", "Subject")
                         .WithMany("StudentSubjects")
                         .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

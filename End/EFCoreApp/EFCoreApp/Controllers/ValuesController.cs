@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,21 +14,24 @@ namespace EFCoreApp.Controllers
     public class ValuesController : ControllerBase
     {
         private readonly ApplicationContext _context;
+
         public ValuesController(ApplicationContext context)
         {
             _context = context;
+
         }
+
         [HttpGet]
         public IActionResult Get()
         {
             //var students = _context.Students
-            //     .Where(s => s.Age > 25)
-            //     .ToList();
-
-            //var studentIds = _context.Students
-            //    .Include(e => e.Evaluations)
-            //    .Select(s => s.Id)
+            //    .AsNoTracking()
+            //    .Where(s => s.Age > 25)
             //    .ToList();
+
+            //var students = _context.Students
+            //    .Include(e => e.Evaluations)
+            //    .FirstOrDefault();
 
             //var students = _context.Students
             //    .Include(e => e.Evaluations)
@@ -65,11 +69,11 @@ namespace EFCoreApp.Controllers
             //    .ToList();
 
             //var student = _context.Students
-            //    .Select(s => new
+            //    .Select(s => new 
             //    {
-            //        s.Name,
-            //        s.Age,
-            //        NumberOfEvaluations = s.Evaluations.Count
+            //        s.Name, 
+            //        s.Age, 
+            //        NumberOfEvaluations = s.Evaluations.Count 
             //    })
             //    .ToList();
 
@@ -84,21 +88,21 @@ namespace EFCoreApp.Controllers
             //    })
             //    .FirstOrDefault();
 
-            var student = _context.Students
-                .FromSql("SELECT * FROM Student WHERE Name = 'John Doe'")
-                .Include(e => e.Evaluations)
-                .FirstOrDefault();
+            //var student = _context.Students
+            //    .FromSqlRaw("SELECT * FROM Student WHERE Name = 'John Doe'")
+            //    .Include(e => e.Evaluations)
+            //    .FirstOrDefault();
 
             //var student = _context.Students
-            //    .FromSql("EXECUTE dbo.MyCustomProcedure")
+            //    .FromSqlRaw("EXECUTE dbo.MyCustomProcedure")
             //    .ToList();
 
             var studentForUpdate = _context.Students
-                .FirstOrDefault(s => s.Name.Equals("Mike Miles"));
+                 .FirstOrDefault(s => s.Name.Equals("Mike Miles"));
             var age = 28;
 
             var rowsAffected = _context.Database
-                .ExecuteSqlCommand(@"UPDATE Student 
+                .ExecuteSqlRaw(@"UPDATE Student 
                                   SET Age = {0} 
                                   WHERE Name = {1}", age, studentForUpdate.Name);
 
